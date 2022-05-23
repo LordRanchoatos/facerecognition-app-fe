@@ -32,7 +32,8 @@ const initialState = {
     name: "",
     email: "",
     entries: 0,
-    joined: ""
+    joined: "",
+    numberOfFaces: ""
   }
 }
 
@@ -55,6 +56,8 @@ class App extends Component {
   }
 
   calculateFaceLocation = (data) => {
+    this.setState({numberOfFaces: data.outputs[0].data.regions.length})
+    // console.log("datatolog: ", data.outputs[0].data.regions.length)
     const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById("inputimage");
     const width = Number(image.width);
@@ -135,7 +138,7 @@ class App extends Component {
                 onInputChange={this.onInputChange}
                 onButtonSubmit={this.onButtonSubmit}
               />
-                <FaceRecognition box={box} imageUrl={imageUrl}/>
+                <FaceRecognition box={box} imageUrl={imageUrl} noOfFaces={this.state.numberOfFaces}/>
           </div>:
             (route === "signin"?
               <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/> :
