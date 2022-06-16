@@ -8,6 +8,7 @@ import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import Signin from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
+//import UserProfile from "./components/UserProfile/UserProfile";
 
 const particlesOptions = {
   particles: {
@@ -37,6 +38,12 @@ const initialState = {
   }
 }
 
+// const showProfile = () => {
+//   this.setState({
+//     route: "profile"
+//   })
+// }
+
 class App extends Component {
   constructor() {
     super();
@@ -55,6 +62,7 @@ class App extends Component {
     }})
   }
 
+  
   calculateFaceLocation = (data) => {
     this.setState({numberOfFaces: data.outputs[0].data.regions.length})
     // console.log("datatolog: ", data.outputs[0].data.regions.length)
@@ -126,10 +134,16 @@ class App extends Component {
 
   render() {
     const { isSignedIn, imageUrl, route, box } = this.state;
+    // let profile;
+    // if (this.route = "profile"){
+    //   profile = <UserProfile />
+    // } else {
+    //   profile = null
+    // }
     return (
       <div className="App">
         <Particles className="particles" params={particlesOptions} />
-        <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} name={this.state.user.name}/>
+        <Navigation isSignedIn={isSignedIn} onRouteChange={this.onRouteChange} showProfile={this.showProfile} name={this.state.user.name}/>
         {route === "home"? 
           <div>
             <Logo />
