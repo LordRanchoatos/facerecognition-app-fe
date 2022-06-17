@@ -1,0 +1,9 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    width: 100%vw;
+    height: 100%vh;
+    color: black;
+    justify-content: center;
+    align-items: center;
+}
