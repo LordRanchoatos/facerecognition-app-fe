@@ -22,7 +22,6 @@ const Navigation = ({ onRouteChange, isSignedIn, name }) => {
             @{name}
           </p>
         </Link>
-        <Link to="profile">user</Link>
       </nav>
     );
   } else {

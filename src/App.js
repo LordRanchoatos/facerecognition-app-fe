@@ -143,7 +143,6 @@ class App extends Component {
                 <Navigation
                   isSignedIn={isSignedIn}
                   onRouteChange={this.onRouteChange}
-                  showProfile={this.showProfile}
                   name={this.state.user.name}
                 />
                 {route === "home" ? (
@@ -180,8 +179,12 @@ class App extends Component {
             <Route path="/profile">
               <UserProfile isSignedIn={this.state.isSignedIn}
                   onRouteChange={this.onRouteChange}
-                  showProfile={this.showProfile}
-                  name={this.state.user.name}/>
+                  name={this.state.user.name}
+                  id={this.state.user.id}
+                  email={this.state.user.email}
+                  entries={this.state.user.entries}
+                  joined={this.state.user.joined}
+                  />
             </Route>
           </Switch>
         </div>
