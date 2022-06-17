@@ -178,7 +178,7 @@ class App extends Component {
             </Route>
 
             <Route path="/profile">
-              <UserProfile isSignedIn={isSignedIn}
+              <UserProfile isSignedIn={this.state.isSignedIn}
                   onRouteChange={this.onRouteChange}
                   showProfile={this.showProfile}
                   name={this.state.user.name}/>

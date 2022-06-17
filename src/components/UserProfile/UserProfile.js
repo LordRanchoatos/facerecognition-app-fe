@@ -8,9 +8,10 @@ import {
   } from "react-router-dom";
 
 function UserProfile({ onRouteChange, isSignedIn, name }) {
+    console.log('IS SIGNED IN: ', isSignedIn)
   return (
     <div>
-    <Navigation onRouteChange={onRouteChange}/>
+    <Navigation isSignedIn={isSignedIn} onRouteChange={onRouteChange} name={name}/>
         <div>THIS THE USER profile PAGE</div>
     </div>
   )
