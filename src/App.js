@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Particles from "react-particles-js";
 import Navigation from "./components/Navigation/Navigation";
 import Logo from "./components/Logo/Logo";
@@ -26,7 +26,7 @@ const particlesOptions = {
 const initialState = {
   input: "",
   imageUrl: "",
-  box: {},
+  boxes: [],
   route: "",
   isSignedIn: false,
   user: {
@@ -38,12 +38,6 @@ const initialState = {
     numberOfFaces: "",
   },
 };
-
-// const showProfile = () => {
-//   this.setState({
-//     route: "profile"
-//   })
-// }
 
 class App extends Component {
   constructor() {
@@ -66,24 +60,27 @@ class App extends Component {
 
   calculateFaceLocation = (data) => {
     this.setState({ numberOfFaces: data.outputs[0].data.regions.length });
-    // console.log("datatolog: ", data.outputs[0].data.regions.length)
-    const clarifaiFace =
-      data.outputs[0].data.regions[0].region_info.bounding_box;
-    const image = document.getElementById("inputimage");
+    const image = document.getElementById("inputImage");
     const width = Number(image.width);
     const height = Number(image.height);
-    console.log("image", width + ":" + height);
-    return {
-      leftCol: clarifaiFace.left_col * width,
-      topRow: clarifaiFace.top_row * height,
-      rightCol: width - clarifaiFace.right_col * width,
-      bottomRow: height - clarifaiFace.bottom_row * height,
-    };
+    console.log(width, ":", height)
+    
+    let mapface = []
+    const faces = data.outputs[0].data.regions
+    faces.map((face) => {
+      const clarifaiFace = face.region_info.bounding_box;
+      mapface.push({
+        leftCol: clarifaiFace.left_col * width,
+        topRow: clarifaiFace.top_row * 333,
+        rightCol: width - clarifaiFace.right_col * width,
+        bottomRow: height - clarifaiFace.bottom_row * 333,
+      });
+    })
+    return mapface;
   };
 
-  displayFaceBox = (box) => {
-    console.log(box);
-    this.setState({ box: box });
+  displayFaceBox = (boxes) => {
+    this.setState({ boxes: boxes });
   };
 
   onInputChange = (event) => {
@@ -100,7 +97,6 @@ class App extends Component {
   };
 
   onButtonSubmit = () => {
-    console.log(this.state.user);
     this.setState({ imageUrl: this.state.input });
     fetch("https://polar-wave-90283.herokuapp.com/imageUrl", {
       method: "post",
@@ -132,7 +128,7 @@ class App extends Component {
   };
 
   render() {
-    const { isSignedIn, imageUrl, route, box } = this.state;
+    const { isSignedIn, imageUrl, route, boxes } = this.state;
     return (
       <Router>
         <div>
@@ -157,7 +153,7 @@ class App extends Component {
                       onButtonSubmit={this.onButtonSubmit}
                     />
                     <FaceRecognition
-                      box={box}
+                      boxes={boxes}
                       imageUrl={imageUrl}
                       noOfFaces={this.state.numberOfFaces}
                     />
