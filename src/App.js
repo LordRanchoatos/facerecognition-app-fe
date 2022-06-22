@@ -63,19 +63,20 @@ class App extends Component {
     const image = document.getElementById("inputImage");
     const width = Number(image.width);
     const height = Number(image.height);
-    console.log(width, ":", height)
+    console.log(width, ":", height);
     
-    let mapface = []
-    const faces = data.outputs[0].data.regions
+
+    let mapface = [];
+    const faces = data.outputs[0].data.regions;
     faces.map((face) => {
       const clarifaiFace = face.region_info.bounding_box;
       mapface.push({
         leftCol: clarifaiFace.left_col * width,
-        topRow: clarifaiFace.top_row * 333,
+        topRow: clarifaiFace.top_row * height,
         rightCol: width - clarifaiFace.right_col * width,
-        bottomRow: height - clarifaiFace.bottom_row * 333,
+        bottomRow: height - clarifaiFace.bottom_row * height,
       });
-    })
+    });
     return mapface;
   };
 
@@ -173,14 +174,15 @@ class App extends Component {
             </Route>
 
             <Route path="/profile">
-              <UserProfile isSignedIn={this.state.isSignedIn}
-                  onRouteChange={this.onRouteChange}
-                  name={this.state.user.name}
-                  id={this.state.user.id}
-                  email={this.state.user.email}
-                  entries={this.state.user.entries}
-                  joined={this.state.user.joined}
-                  />
+              <UserProfile
+                isSignedIn={this.state.isSignedIn}
+                onRouteChange={this.onRouteChange}
+                name={this.state.user.name}
+                id={this.state.user.id}
+                email={this.state.user.email}
+                entries={this.state.user.entries}
+                joined={this.state.user.joined}
+              />
             </Route>
           </Switch>
         </div>
