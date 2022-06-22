@@ -10,6 +10,7 @@ import FaceRecognition from "./components/FaceRecognition/FaceRecognition";
 import Signin from "./components/Signin/Signin";
 import Register from "./components/Register/Register";
 import UserProfile from "./components/UserProfile/UserProfile";
+import NumberOfFaces from "./components/NumberOfFaces/NumberOfFacess";
 
 const particlesOptions = {
   particles: {
@@ -156,8 +157,8 @@ class App extends Component {
                     <FaceRecognition
                       boxes={boxes}
                       imageUrl={imageUrl}
-                      noOfFaces={this.state.numberOfFaces}
                     />
+                    <NumberOfFaces noOfFaces={this.state.numberOfFaces}/>
                   </div>
                 ) : route === "signin" ? (
                   <Signin
